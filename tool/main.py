@@ -46,6 +46,9 @@ def calculate_rouge_1_score(summary):
 def clean_tweet(tweet_text):
     stop_words = stopwords.words('english')
     tweet_text = re.sub(r'(?:\@|https?\://)\S+', '', str(tweet_text))   # remove links and @
+    #tweet_text = re.sub(r'\\', '', str(tweet_text))
+    # tweet_text = tweet_text.strip("\\")
+    # tweet_text = tweet_text.replace("\\", "")
     tweet_text = word_tokenize(str(tweet_text).lower(), 'english')      # tokenize words and make lower case
     tweetSummarizer.store_full_tweets(tweet_text)
     clean_tweet_text = []
@@ -100,19 +103,40 @@ if choice == '1':   # summarize an article
             break
         except ValueError:
             print("Invalid input, number of sentences needs to be a positive number of 20 or lower")
-    print("Enter the article to summarized\n")
-    while True:     # Get user input for article to be summarised
+    while True:  # Get the number of sentences that the user wants the article to be summarized to
+        number = input("Enter an article (1) or summarise from file (2)?\n")
         try:
-            line = input()
-        except EOFError:
+            file_or_keyboard = int(number)
+            if num_of_sentences < 1:
+                print("Invalid input, pick either 1 or 2.")
+                continue
+            elif num_of_sentences > 2:
+                print("Invalid input, pick either 1 or 2.")
+                continue
             break
-        text.append(line)
-    store_article(text)
-    count_file = open("document.txt", "rt")
-    data = count_file.read()
-    total_word_count = data.split()
-    file = "document.txt"
-    parser = PlaintextParser.from_file(file, Tokenizer("english"))
+        except ValueError:
+            print("Invalid input, pick either 1 or 2.")
+    if file_or_keyboard == 1:
+        print("Enter the article to summarized\n")
+        while True:     # Get user input for article to be summarised
+            try:
+                line = input()
+            except EOFError:
+                break
+            text.append(line)
+        store_article(text)
+        count_file = open("document.txt", "rt")
+        data = count_file.read()
+        total_word_count = data.split()
+        file = "document.txt"
+        parser = PlaintextParser.from_file(file, Tokenizer("english"))
+    elif file_or_keyboard == 2:
+        print("Enter the location of the file\n")
+        file = input()
+        count_file = open(file, "rt")
+        data = count_file.read()
+        total_word_count = data.split()
+        parser = PlaintextParser.from_file(file, Tokenizer("english"))
 
     textrank = LongSummarizer("TextRank", TextRankSummarizer())
     lexrank = LongSummarizer("LexRank", LexRankSummarizer())

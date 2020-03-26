@@ -28,7 +28,7 @@ class TweetSummarizer:
     def store_full_tweets(self, row):
         self.full_tweets.append(row)
 
-    def generate_word_frequency_table(self):            # ASK IF ITS OK TO FOLLOW TUTORIAL
+    def generate_word_frequency_table(self):
         ps = nltk.stem.porter.PorterStemmer()
         tweets = []
         individual_tweet = ''
