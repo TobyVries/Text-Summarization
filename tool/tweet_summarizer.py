@@ -88,7 +88,7 @@ class TweetSummarizer:
     def generate_summary(self):
         num_of_sentences = 0
         for tweet in range(0, len(self.full_tweet_list)):
-            if self.full_tweet_list[tweet] in self.tweet_value and self.tweet_value[self.full_tweet_list[tweet]] > 1.2 * self.average:
+            if self.full_tweet_list[tweet] in self.tweet_value and self.tweet_value[self.full_tweet_list[tweet]] > 1.5 * self.average:
                 self.summary += '\n' + self.display_tweets[tweet]
                 num_of_sentences += 1
                 if num_of_sentences > self.total_sentence_count:
