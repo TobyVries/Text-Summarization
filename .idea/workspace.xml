@@ -4,9 +4,7 @@
     <list default="true" id="8c5c4434-0a1e-49e2-b29c-287827a7c5ae" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tool/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/tool/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tool/scraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/tool/scraper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tool/tweet_summarizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/tool/tweet_summarizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tool/tweets.csv" beforeDir="false" afterPath="$PROJECT_DIR$/tool/tweets.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
