@@ -9,8 +9,8 @@ class TweetSummarizer:
         self.clean_tweets = []              # stores each cleaned tweet in a list of lists
         self.full_tweet_list = []           # stores each full tweet in a single list, each element being a tweet
         self.display_tweets = []            # stores what to print to user
-        self.word_frequency_table = dict()  #
-        self.tweet_value = dict()           #
+        self.word_frequency_table = dict()
+        self.tweet_value = dict()
         self.summary = ''
         self.average = 0
         self.total_sentence_count = 2
@@ -47,7 +47,6 @@ class TweetSummarizer:
                 if tweet[0] == "'":
                     tweet.pop(0)
             except IndexError:
-                # print('Index Error')
                 continue
             # returns a list of each tweet, now need to loop through it based on length and add to string. when length
             # is reached add to list and set individual to nothing
@@ -57,7 +56,6 @@ class TweetSummarizer:
             individual_tweet = ''
         # transfer full tweets list of lists to a single list and use that for loop
         self.full_tweet_list = tweets
-        # print(self.full_tweet_list)
         for words in self.clean_tweets:
             for word in words:
                 word = ps.stem(word)
@@ -78,7 +76,6 @@ class TweetSummarizer:
             try:
                 self.tweet_value[tweet] = self.tweet_value[tweet] // tweet_word_count
             except ZeroDivisionError:
-                print('HELLO')
                 continue
 
     def average_score(self):
@@ -86,7 +83,7 @@ class TweetSummarizer:
         for score in self.tweet_value:
             sum_values += self.tweet_value[score]
 
-        self.average = int(sum_values / len(self.tweet_value))      # change some stuff
+        self.average = int(sum_values / len(self.tweet_value))      
 
     def generate_summary(self):
         num_of_sentences = 0
