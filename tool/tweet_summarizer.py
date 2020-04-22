@@ -83,7 +83,7 @@ class TweetSummarizer:
         for score in self.tweet_value:
             sum_values += self.tweet_value[score]
 
-        self.average = int(sum_values / len(self.tweet_value))      
+        self.average = int(sum_values / len(self.tweet_value))
 
     def generate_summary(self):
         num_of_sentences = 0
