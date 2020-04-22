@@ -45,20 +45,10 @@ def calculate_rouge_1_score(summary):
     return scores
 
 
-def clean_text(t):
-    unwanted_char = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x7f\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff'
-    t = "".join([(" " if n in unwanted_char else n) for n in text if n not in unwanted_char])
-    return t
-
-
 def clean_tweet(tweet_text):
     stop_words = stopwords.words('english')
     tweet_text = re.sub(r'(?:\@|https?\://)\S+', '', str(tweet_text))   # remove links and @
-    #tweet_text = re.sub(r'\\', '', str(tweet_text))
-    # tweet_text = tweet_text.strip("\\")
-    # tweet_text = tweet_text.replace("\\", "")
     tweet_text = word_tokenize(str(tweet_text).lower(), 'english')      # tokenize words and make lower case
-    #tweetSummarizer.store_full_tweets(tweet_text)          #MAY BREAK SOMETHING
     clean_tweet_text = []
     filtered_tweet_text = [word for word in tweet_text if word.isalpha()]   # remove non-alpha values
     for word in filtered_tweet_text:
@@ -208,7 +198,7 @@ elif choice == '2':     # summarize a twitter topic
     rows = []
     usable_rows = []
     for tweet in tweets:
-        rows.append(str(tweet['text']))#.encode('utf-8')) # may need to add , 'ignore'
+        rows.append(str(tweet['text']))
     if len(rows) > 0:
         usable_rows = rows.copy()
         for i in range(0, len(rows)):
@@ -217,19 +207,15 @@ elif choice == '2':     # summarize a twitter topic
         with open('tweets.csv', 'w', encoding='utf-8') as csvfile:
             writer = csv.writer(csvfile, delimiter='\n')
             writer.writerow(rows)
-        # print('before', usable_rows)
         for row in range(0, len(usable_rows)):
             usable_rows[row] = re.sub(r'(?:\@|https?\://)\S+', '', str(usable_rows[row]))  # remove links and @
             usable_rows[row] = re.sub(r'\bpic.twitter.com/\w+', '', str(usable_rows[row]))  # removes pic.twitter links
-        # print('after', usable_rows)
         for row in range(0, len(usable_rows)):
             usable_rows[row] = usable_rows[row].replace("b'", "")
             usable_rows[row] = usable_rows[row].replace('b"', "")
             usable_rows[row] = usable_rows[row].replace("RT", "")
             usable_rows[row] = usable_rows[row].replace("\\n", "")
             usable_rows[row] = usable_rows[row].lstrip()
-            clean_text(usable_rows[row])
-        # print('after 2', usable_rows)
         tweetSummarizer.display_tweets = usable_rows
         tweetSummarizer.store_tweets()
         tweetSummarizer.generate_word_frequency_table()
@@ -287,5 +273,3 @@ elif choice == '4':     # summarize user tweets
     summarizer.average_score()
     summarizer.generate_summary()
     print(summarizer.summary)
-
-# for testing record times and put in graph to ensure timing are correct

@@ -19,7 +19,7 @@ class Scraper:
                 paragraph = all_paragraphs.find_all('p')
                 for p in paragraph:
                     text.append(p.get_text() + " ")
-                    text_updated = [i.replace('£', '') for i in text]  # remove symbols which aren't utf-8
+                    text_updated = [i.replace('£', '') for i in text]  # remove £
             except AttributeError:
                 print('Not a valid URL.')
                 sys.exit()
